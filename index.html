@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!-- As soon as this page loads, send people back into your app -->
-  <meta http-equiv="refresh" content="0; url=myapp://verify" />
+  <meta charset="UTF-8" />
+  <title>Verify Link Debug</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    .param {
+      margin: .5rem 0;
+      padding: .5rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const output = document.getElementById('output');
+      const params = new URLSearchParams(window.location.search);
+      if (!params.toString()) {
+        output.textContent = 'No query parameters found.';
+        return;
+      }
+      // For each key/value, add a div
+      params.forEach((value, key) => {
+        const el = document.createElement('div');
+        el.className = 'param';
+        el.textContent = `${key} = ${decodeURIComponent(value)}`;
+        output.appendChild(el);
+      });
+    });
+  </script>
 </head>
 <body>
-  <p>Verifying… redirecting back to the app.</p>
-  <p>Click here to retutn to app</p>
-  <a>Click here</a>
+  <h1>Query Parameters</h1>
+  <div id="output">
+    Loading…
+  </div>
 </body>
 </html>
