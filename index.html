@@ -2,43 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Verify Link Debug</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #f5f5f5;
-    }
-    .param {
-      margin: .5rem 0;
-      padding: .5rem;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-  </style>
+  <title>Verifying…</title>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      const output = document.getElementById('output');
-      const params = new URLSearchParams(window.location.search);
-      if (!params.toString()) {
-        output.textContent = 'No query parameters found.';
-        return;
-      }
-      // For each key/value, add a div
-      params.forEach((value, key) => {
-        const el = document.createElement('div');
-        el.className = 'param';
-        el.textContent = `${key} = ${decodeURIComponent(value)}`;
-        output.appendChild(el);
-      });
+      // grab everything after the “?”
+      const qs     = window.location.search;  
+      // build the deep link URL:
+      const target = `myapp://verify${qs}`;     
+      // go into your Flutter app:
+      window.location.replace(target);
     });
   </script>
+  <!-- fallback if JS is disabled: -->
+  <meta http-equiv="refresh" content="0; url=myapp://verify" />
 </head>
 <body>
-  <h1>Query Parameters</h1>
-  <div id="output">
-    Loading…
-  </div>
+  <p>Verifying… redirecting back to the app.</p>
+  <p>If nothing happens, <a id="link" href="#">click here</a>.</p>
+  <script>
+    document.getElementById('link').href = 
+      `myapp://verify${window.location.search}`;
+  </script>
 </body>
 </html>
