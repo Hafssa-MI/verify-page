@@ -1,28 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Verifying…</title>
+  <meta charset="UTF-8" />
+  <title>Verify Link Debug</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    .param {
+      margin: .5rem 0;
+      padding: .5rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
   <script>
-    // As soon as this page loads, grab the query string
-    // and redirect into your app with all the parameters.
     window.addEventListener('DOMContentLoaded', () => {
-      const qs = window.location.search;                     // e.g. '?userId=123&secret=abc...'
-      // const target = `myapp://verify${qs}`;                  // myapp://verify?userId=...&secret=...
-      const target = `www.google.com`;                  // myapp://verify?userId=...&secret=...
-      // Replace the page with the deep link
-      window.location.replace(target);
+      const output = document.getElementById('output');
+      const params = new URLSearchParams(window.location.search);
+      if (!params.toString()) {
+        output.textContent = 'No query parameters found.';
+        return;
+      }
+      // For each key/value, add a div
+      params.forEach((value, key) => {
+        const el = document.createElement('div');
+        el.className = 'param';
+        el.textContent = `${key} = ${decodeURIComponent(value)}`;
+        output.appendChild(el);
+      });
     });
   </script>
-  <!-- Fallback meta-refresh if JS is disabled -->
-  <meta http-equiv="refresh" content="0; url=myapp://verify" />
 </head>
 <body>
-  <p>Verifying… redirecting back into the app.</p>
-  <p>If nothing happens, <a id="link" href="#">click here</a>.</p>
-  <script>
-    // Provide a manual link in case auto-redirect fails
-    document.getElementById('link').href = `myapp://verify${window.location.search}`;
-  </script>
+  <h1>Query Parameters</h1>
+  <div id="output">
+    Loading…
+  </div>
 </body>
 </html>
