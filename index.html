@@ -8,7 +8,8 @@
     // and redirect into your app with all the parameters.
     window.addEventListener('DOMContentLoaded', () => {
       const qs = window.location.search;                     // e.g. '?userId=123&secret=abc...'
-      const target = `myapp://verify${qs}`;                  // myapp://verify?userId=...&secret=...
+      // const target = `myapp://verify${qs}`;                  // myapp://verify?userId=...&secret=...
+      const target = `www.google.com`;                  // myapp://verify?userId=...&secret=...
       // Replace the page with the deep link
       window.location.replace(target);
     });
