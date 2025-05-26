@@ -1,4 +1,3 @@
-<!-- verify-page/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,23 +5,16 @@
   <title>Vérification</title>
   <script>
     window.onload = () => {
-      // grab the entire query string, e.g. "?userId=...&secret=..."
       const qs = window.location.search || '';
-      // build the deep-link URI, including the query string
-      const uri = 'smartexplore://verify' + qs;
-      // redirect the browser/device into your app
-      window.location.href = uri;
-    }
+      window.location.href = 'smartexplore://verify' + qs;
+    };
   </script>
 </head>
-<body style="display:flex; align-items:center; justify-content:center; height:100vh; font-family:sans-serif;">
-  <div style="text-align:center;">
-    <p>Redirection vers l’application…</p>
-    <p>Si rien ne se passe, <a id="link" href="#">cliquez ici</a></p>
-  </div>
-
+<body>
+  <p>Redirection vers l’app… Si rien ne se passe, 
+    <a id="link" href="#">cliquez ici</a>
+  </p>
   <script>
-    // also wire the “click here” link
     document.getElementById('link').href =
       'smartexplore://verify' + window.location.search;
   </script>
