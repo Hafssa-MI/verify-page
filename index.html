@@ -1,27 +1,30 @@
-<!DOCTYPE html>
+<!-- verify-page/index.html -->
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Verifying…</title>
+  <meta charset="utf-8">
+  <title>Vérification</title>
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // grab everything after the “?”
-      const qs     = window.location.search;  
-      // build the deep link URL:
-      const target = `myapp://verify${qs}`;     
-      // go into your Flutter app:
-      window.location.replace(target);
-    });
+    window.onload = () => {
+      // grab the entire query string, e.g. "?userId=...&secret=..."
+      const qs = window.location.search || '';
+      // build the deep-link URI, including the query string
+      const uri = 'smartexplore://verify' + qs;
+      // redirect the browser/device into your app
+      window.location.href = uri;
+    }
   </script>
-  <!-- fallback if JS is disabled: -->
-  <meta http-equiv="refresh" content="0; url=myapp://verify" />
 </head>
-<body>
-  <p>Verifying… redirecting back to the app.</p>
-  <p>If nothing happens, <a id="link" href="#">click here</a>.</p>
+<body style="display:flex; align-items:center; justify-content:center; height:100vh; font-family:sans-serif;">
+  <div style="text-align:center;">
+    <p>Redirection vers l’application…</p>
+    <p>Si rien ne se passe, <a id="link" href="#">cliquez ici</a></p>
+  </div>
+
   <script>
-    document.getElementById('link').href = 
-      `myapp://verify${window.location.search}`;
+    // also wire the “click here” link
+    document.getElementById('link').href =
+      'smartexplore://verify' + window.location.search;
   </script>
 </body>
 </html>
